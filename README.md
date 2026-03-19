@@ -1,257 +1,77 @@
-# CodeCraftHub API
+# 🚀 CodeCraftHub: Full-Stack Course Tracker
 
-> A personal learning goal tracker API for developers — simple, file-based, and ready to use.
+CodeCraftHub is a lightweight, full-stack application designed for developers to track their learning goals. It features a Node.js/Express API for data persistence and a React/Tailwind CSS dashboard for a modern user experience.
 
----
-
-
-# Features
-
-- Full **CRUD** operations for courses
-- Data persisted in a local `courses.json` file — no database required
-- Auto-generated numeric IDs starting from `1`
-- `created_at` timestamp added on course creation
-- Validation for required fields and allowed status values
-- Basic error handling for missing fields, not-found resources, invalid status, and file I/O issues
-- No authentication or user management — learning-focused and lightweight
-- Runs on **port 5000**
+> *(Optional: Add a screenshot of your Bolt UI here!)*
 
 ---
 
-# Prerequisites
+## 📂 Project Structure
 
-- [Node.js](https://nodejs.org/) v14 or higher
+```
+CodeCraftHub/
+├── backend/           # Node.js + Express API
+│   ├── app.js         # Server logic & CRUD routes
+│   ├── courses.json   # Local JSON database
+│   └── package.json
+├── frontend/          # React + Vite + Tailwind CSS
+│   ├── src/           # Components & API hooks
+│   ├── public/        # Static assets
+│   └── package.json
+└── README.md          # Project documentation
+```
 
 ---
 
-# Installation
+## 🛠️ Features
 
-1. Clone or download the project folder.
-2. Open a terminal and navigate to the project root.
-3. Install dependencies:
+- **Full CRUD:** Create, Read, Update, and Delete courses seamlessly.
+- **Live Statistics:** Real-time dashboard showing "In Progress," "Completed," and "Total" counts.
+- **Persistent Storage:** Data is saved to a local `courses.json` file — no heavy database setup required.
+- **Modern UI:** Responsive dashboard built with React and Tailwind CSS.
+- **CORS Enabled:** Seamless communication between the frontend (Port 5173) and backend (Port 5000).
+
+---
+
+## 🚀 Getting Started
+
+To run this project, you must start both the backend and the frontend in **separate terminal windows**.
+
+### 1. Backend Setup
 
 ```bash
+cd backend
 npm install
+node app.js
 ```
 
----
+The API will be available at `http://localhost:5000`.
 
-# Running the Server
+### 2. Frontend Setup
 
 ```bash
-npm start
+cd frontend
+npm install
+npm run dev
 ```
 
-The server will start on `http://localhost:5000`. You can open it in a browser or use a tool like `curl` or Postman to interact with the API.
+The Dashboard will be available at `http://localhost:5173`.
 
 ---
 
-# API Endpoints
+## 📡 API Reference
 
-All endpoints are under the `/api/courses` base path.
-
----
-
-## POST /api/courses
-
-Add a new course.
-
-**Request Body (JSON)**
-
-| Field         | Type   | Required | Description                                      |
-|---------------|--------|----------|--------------------------------------------------|
-| `name`        | string | ✅       | Name of the course                               |
-| `description` | string | ✅       | Short description of the course                  |
-| `target_date` | string | ✅       | Target completion date in `YYYY-MM-DD` format    |
-| `status`      | string | ✅       | One of: `Not Started`, `In Progress`, `Completed`|
-
-**Responses**
-
-| Status | Description                                      |
-|--------|--------------------------------------------------|
-| `201`  | Created — returns the new course object          |
-| `400`  | Bad Request — missing or invalid fields          |
-| `500`  | Internal Server Error — file I/O issue           |
-
-**Example**
-
-```bash
-curl -X POST http://localhost:5000/api/courses \
-  -H "Content-Type: application/json" \
-  -d '{"name":"Express Essentials","description":"Build REST APIs with Express","target_date":"2026-04-30","status":"Not Started"}'
-```
+| Method   | Endpoint             | Description                          |
+|----------|----------------------|--------------------------------------|
+| `GET`    | `/api/courses`       | Retrieve all courses                 |
+| `GET`    | `/api/courses/stats` | Get course statistics for dashboard  |
+| `POST`   | `/api/courses`       | Add a new learning goal              |
+| `PUT`    | `/api/courses/:id`   | Update status or course details      |
+| `DELETE` | `/api/courses/:id`   | Remove a course                      |
 
 ---
 
-## GET /api/courses
+## ⚙️ Prerequisites
 
-Retrieve all courses.
-
-**Response:** `200 OK` — array of course objects.
-
-**Example**
-
-```bash
-curl -X GET http://localhost:5000/api/courses
-```
-
----
-
-## GET /api/courses/:id
-
-Retrieve a specific course by its ID.
-
-**Responses**
-
-| Status | Description              |
-|--------|--------------------------|
-| `200`  | Returns the course object|
-| `400`  | Invalid ID               |
-| `404`  | Course not found         |
-
-**Example**
-
-```bash
-curl -X GET http://localhost:5000/api/courses/1
-```
-
----
-
-## PUT /api/courses/:id
-
-Fully update a course. All fields are required in the payload.
-
-**Request Body (JSON)** — same fields as POST.
-
-**Responses**
-
-| Status | Description                     |
-|--------|---------------------------------|
-| `200`  | Returns the updated course      |
-| `400`  | Invalid or incomplete payload   |
-| `404`  | Course not found                |
-| `500`  | Internal Server Error           |
-
-**Example**
-
-```bash
-curl -X PUT http://localhost:5000/api/courses/1 \
-  -H "Content-Type: application/json" \
-  -d '{"name":"Express Essentials","description":"Full Express REST API","target_date":"2026-05-15","status":"In Progress"}'
-```
-
----
-
-## PATCH /api/courses/:id
-
-Partially update a course. Send only the fields you want to change.
-
-**Responses**
-
-| Status | Description                     |
-|--------|---------------------------------|
-| `200`  | Returns the updated course      |
-| `400`  | Invalid payload or invalid status|
-| `404`  | Course not found                |
-| `500`  | Internal Server Error           |
-
-**Example**
-
-```bash
-curl -X PATCH http://localhost:5000/api/courses/1 \
-  -H "Content-Type: application/json" \
-  -d '{"status":"Completed"}'
-```
-
----
-
-## DELETE /api/courses/:id
-
-Delete a course by its ID.
-
-**Responses**
-
-| Status | Description           |
-|--------|-----------------------|
-| `204`  | No Content — deleted  |
-| `404`  | Course not found      |
-| `500`  | Internal Server Error |
-
-**Example**
-
-```bash
-curl -X DELETE http://localhost:5000/api/courses/1
-```
-
----
-
-# Course Object Schema
-
-Each course object has the following structure:
-
-```json
-{
-  "id": 1,
-  "name": "Express Essentials",
-  "description": "Build REST APIs with Express",
-  "target_date": "2026-04-30",
-  "status": "Not Started",
-  "created_at": "2026-03-19T00:00:00.000Z"
-}
-```
-
-| Field        | Type   | Description                                         |
-|--------------|--------|-----------------------------------------------------|
-| `id`         | number | Auto-generated numeric ID                           |
-| `name`       | string | Course name                                         |
-| `description`| string | Course description                                  |
-| `target_date`| string | Target completion date (`YYYY-MM-DD`)               |
-| `status`     | string | `Not Started`, `In Progress`, or `Completed`        |
-| `created_at` | string | ISO 8601 timestamp, auto-generated on creation      |
-
----
-
-# Data Storage
-
-- Data is stored in a `courses.json` file at the project root.
-- On startup (or first operation), the server ensures the file exists. If missing, it initializes it with an empty array `[]`.
-- The app reads the entire array into memory, applies changes, then writes the updated array back to the file.
-
----
-
-# Project Structure
-
-```
-project-root/
-├── app.js           # Main server entry point
-├── courses.json     # JSON data store (auto-created)
-├── package.json     # Project metadata and start script
-└── node_modules/    # Installed dependencies (after npm install)
-```
-
----
-
-# Troubleshooting
-
-**400 Bad Request**
-- Ensure your JSON payload includes all required fields: `name`, `description`, `target_date`, `status`.
-- Verify `target_date` follows `YYYY-MM-DD` format.
-- Confirm `status` is one of: `Not Started`, `In Progress`, `Completed`.
-
-**404 Not Found**
-- Verify the `id` in the URL exists in `courses.json`.
-- Make sure you're using the correct numeric ID.
-
-**500 Internal Server Error**
-- Check that the process has read/write permissions for the project root.
-- If `courses.json` contains invalid JSON, reset it to `[]` and restart the server.
-
-**Data file not created automatically**
-- Verify write permissions on the project root directory.
-- Confirm the path specified for the data file is accessible.
-
-**Port conflicts**
-- The server runs on port `5000`. Stop any conflicting process or modify the port in `app.js`.
-
-**JSON parsing errors in courses.json**
-- If you manually edited `courses.json` and introduced invalid JSON, the server may reset it to `[]`. If issues persist, fix the JSON manually or reset the file.
+- [Node.js](https://nodejs.org/) v14.0 or higher
+- NPM *(included with Node.js)*
