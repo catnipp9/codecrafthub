@@ -2,8 +2,6 @@
 
 CodeCraftHub is a lightweight, full-stack application designed for developers to track their learning goals. It features a Node.js/Express API for data persistence and a React/Tailwind CSS dashboard for a modern user experience.
 
-> *(Optional: Add a screenshot of your Bolt UI here!)*
-
 ---
 
 ## 📂 Project Structure
