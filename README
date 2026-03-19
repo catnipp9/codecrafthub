@@ -4,7 +4,7 @@
 
 ---
 
-## Table of Contents
+# Table of Contents
 
 - [Features](#features)
 - [Prerequisites](#prerequisites)
@@ -24,7 +24,7 @@
 
 ---
 
-## Features
+# Features
 
 - Full **CRUD** operations for courses
 - Data persisted in a local `courses.json` file — no database required
@@ -37,13 +37,13 @@
 
 ---
 
-## Prerequisites
+# Prerequisites
 
 - [Node.js](https://nodejs.org/) v14 or higher
 
 ---
 
-## Installation
+# Installation
 
 1. Clone or download the project folder.
 2. Open a terminal and navigate to the project root.
@@ -55,7 +55,7 @@ npm install
 
 ---
 
-## Running the Server
+# Running the Server
 
 ```bash
 npm start
@@ -65,13 +65,13 @@ The server will start on `http://localhost:5000`. You can open it in a browser o
 
 ---
 
-## API Endpoints
+# API Endpoints
 
 All endpoints are under the `/api/courses` base path.
 
 ---
 
-### POST /api/courses
+## POST /api/courses
 
 Add a new course.
 
@@ -102,7 +102,7 @@ curl -X POST http://localhost:5000/api/courses \
 
 ---
 
-### GET /api/courses
+## GET /api/courses
 
 Retrieve all courses.
 
@@ -116,7 +116,7 @@ curl -X GET http://localhost:5000/api/courses
 
 ---
 
-### GET /api/courses/:id
+## GET /api/courses/:id
 
 Retrieve a specific course by its ID.
 
@@ -136,7 +136,7 @@ curl -X GET http://localhost:5000/api/courses/1
 
 ---
 
-### PUT /api/courses/:id
+## PUT /api/courses/:id
 
 Fully update a course. All fields are required in the payload.
 
@@ -161,7 +161,7 @@ curl -X PUT http://localhost:5000/api/courses/1 \
 
 ---
 
-### PATCH /api/courses/:id
+## PATCH /api/courses/:id
 
 Partially update a course. Send only the fields you want to change.
 
@@ -184,7 +184,7 @@ curl -X PATCH http://localhost:5000/api/courses/1 \
 
 ---
 
-### DELETE /api/courses/:id
+## DELETE /api/courses/:id
 
 Delete a course by its ID.
 
@@ -204,7 +204,7 @@ curl -X DELETE http://localhost:5000/api/courses/1
 
 ---
 
-## Course Object Schema
+# Course Object Schema
 
 Each course object has the following structure:
 
@@ -230,7 +230,7 @@ Each course object has the following structure:
 
 ---
 
-## Data Storage
+# Data Storage
 
 - Data is stored in a `courses.json` file at the project root.
 - On startup (or first operation), the server ensures the file exists. If missing, it initializes it with an empty array `[]`.
@@ -238,7 +238,7 @@ Each course object has the following structure:
 
 ---
 
-## Project Structure
+# Project Structure
 
 ```
 project-root/
@@ -250,7 +250,7 @@ project-root/
 
 ---
 
-## Troubleshooting
+# Troubleshooting
 
 **400 Bad Request**
 - Ensure your JSON payload includes all required fields: `name`, `description`, `target_date`, `status`.
